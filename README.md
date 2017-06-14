@@ -4,5 +4,5 @@
 <h3>大体结构</h3>
 <img src="https://github.com/guodalin8/SSHERP/blob/master/WebRoot/images/jiegou.png">
 <h3>基本界面</h3>
-<img src="https://github.com/guodalin8/SSHERP/blob/master/WebRoot/images/jiemian.png">
+<img src="https://github.com/guodalin8/SSHERP/blob/master/WebRoot/images/yemian.png">
  
