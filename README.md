@@ -3,5 +3,6 @@
 <p>结构上比较清晰，不论是打算学习SSH或者练手进销存项目都有借鉴意义。</p>
 <h3>大体结构</h3>
 ![](https://github.com/guodalin8/SSHERP/blob/master/WebRoot/images/jiegou.png)
+<img src="https://github.com/guodalin8/SSHERP/blob/master/WebRoot/images/jiegou.png">
 
  
