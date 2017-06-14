@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<table name="VIEW_1" schema="SSH">
+		<column name="USER_ID" type="java.lang.Integer"></column>
+		<column name="DEPT_ID" type="java.lang.Integer"></column>
+		<column name="IS_DELETE" type="java.lang.Integer"></column>
+	</table>
+	<table name="VIEW_2" schema="SSH">
+		<column name="BUY_ID" type="java.lang.Integer"></column>
+		<column name="SALE_ID" type="java.lang.Integer"></column>
+		<column name="M_OUT" type="java.lang.Double"></column>
+		<column name="M_IN" type="java.lang.Double"></column>
+	</table>
+</hibernate-reverse-engineering>

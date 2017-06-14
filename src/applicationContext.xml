@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.1.xsd 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd" 
+	xmlns:tx="http://www.springframework.org/schema/tx">
+	
+		<!-- 数据库信息数据源 -->
+		<bean id="dataSource"
+			class="org.apache.commons.dbcp.BasicDataSource">
+			<property name="driverClassName"
+				value="oracle.jdbc.driver.OracleDriver">
+			</property>
+			<property name="url"
+				value="jdbc:oracle:thin:@localhost:1521:dalin">
+			</property>
+			<property name="username" value="ssh"></property>
+			<property name="password" value="123"></property>
+		</bean>
+		<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.Oracle9Dialect
+				</prop>
+				<!-- <prop key="hibernate.show_sql">true</prop>  -->
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>org/erp/pojo/Buy.hbm.xml</value>
+				<value>org/erp/pojo/BuyDetail.hbm.xml</value>
+				<value>org/erp/pojo/ProSup.hbm.xml</value>
+				<value>org/erp/pojo/Userinfo.hbm.xml</value>
+				<value>org/erp/pojo/Sale.hbm.xml</value>
+				<value>org/erp/pojo/Pro.hbm.xml</value>
+				<value>org/erp/pojo/Sup.hbm.xml</value>
+				<value>org/erp/pojo/ProKind.hbm.xml</value>
+				<value>org/erp/pojo/Dept.hbm.xml</value>
+				<value>org/erp/pojo/Clear.hbm.xml</value>
+				<value>org/erp/pojo/SaleDetail.hbm.xml</value>
+				<value>org/erp/pojo/Customer.hbm.xml</value>
+				<value>org/erp/pojo/DetailBuyView.hbm.xml</value>
+				<value>org/erp/pojo/View1.hbm.xml</value>
+				<value>org/erp/pojo/BuySale.hbm.xml</value>
+				<value>org/erp/pojo/View2.hbm.xml</value></list>
+		</property></bean>
+		<!-- 采购单配置开始 -->
+	<bean id="BuyAction" class="org.erp.action.BuyAction">  
+        <property name="services" ref="BuyServices"></property>  
+    </bean>  
+    <bean id="BuyServices" class="org.erp.services.impl.BuyServicesImpl">  
+        <property name="dao" ref="BuyDAO"></property>  
+    </bean>  
+    <bean id="BuyDAO" class="org.erp.dao.impl.BuyDAOImpl">  
+        <property name="sessionFactoy" ref="sessionFactory"></property>  
+    </bean> 
+		<!-- 采购单配置结束 -->
+		
+		<!-- 员工信息配置开始 -->
+	<bean id="UserinfoAction" class="org.erp.action.UserinfoAction">  
+        <property name="services" ref="UserinfoServices"></property>  
+    </bean>  
+    <bean id="UserinfoServices" class="org.erp.services.impl.UserinfoServicesImpl">  
+        <property name="dao" ref="UserinfoDAO"></property>  
+    </bean>  
+    <bean id="UserinfoDAO" class="org.erp.dao.impl.UserinfoDAOImpl">  
+        <property name="sessionFactoy" ref="sessionFactory"></property>  
+    </bean> 
+		<!-- 员工信息配置结束 -->
+		
+		<!-- 采购明细信息配置开始 -->
+	<bean id="BuyDetailAction" class="org.erp.action.BuyDetailAction">  
+        <property name="services" ref="BuyDetailServices"></property>  
+    </bean>  
+    <bean id="BuyDetailServices" class="org.erp.services.impl.BuyDetailServicesImpl">  
+        <property name="dao" ref="BuyDetailDAO"></property>  
+    </bean>  
+    <bean id="BuyDetailDAO" class="org.erp.dao.impl.BuyDetailDAOImpl">  
+        <property name="sessionFactoy" ref="sessionFactory"></property>  
+    </bean> 
+		<!-- 采购明细信息配置结束 -->
+		
+		
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<!--propagation="REQUIRED"，事务的衍生方式为必需，即事务的传播方式。有则用现成事务无则创建新的-->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="do*" propagation="REQUIRED" />
+			<tx:method name="find*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+		<aop:pointcut id="productServiceMethods"
+			expression="execution(* org.erp.services.impl.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="productServiceMethods" />
+	</aop:config>
+	<tx:annotation-driven transaction-manager="transactionManager" /></beans>

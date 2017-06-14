@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="default" namespace="/" extends="json-default"> 
+	
+		<!-- 采购  -->
+        <action name="buy_*" class="BuyAction" method="{1}">  
+            <result name="success" type="json">  
+                <param name="root">resultContent</param>  
+                <!-- root表示返回对象的层级为根部 -->
+            </result> 
+            <result name="succ" type="json">  
+                <param name="root">jsonA</param>  
+            </result> 
+            <result name="suc">/jsp/buy/update.jsp</result>
+            <result name="show">/jsp/buydetail/query.jsp</result>
+        </action>  
+        
+        <!-- 员工 -->
+        <action name="user_*" class="UserinfoAction" method="{1}">  
+            <result name="success" type="json">  
+                <param name="root">resultContent</param>  
+            </result>  
+            <result name="succ" type="json">  
+                <param name="root">jsonA</param>  
+            </result> 
+            <result name="suc" >/jsp/user/update.jsp</result>  
+        </action>
+        
+      <!--   采购明细 -->
+        <action name="bd_*" class="BuyDetailAction" method="{1}">  
+            <result name="success" type="json">  
+                <param name="root">resultContent</param>  
+            </result> 
+            <result name="succ" type="json">  
+                <param name="root">jsonA</param>  
+            </result> 
+            <result name="suc">/jsp/buydetail/update.jsp</result>
+        </action> 
+        
+        <!-- 客户表 -->
+		<action name="customer_*" class="CustomerAction" method="{1}">
+			<result name="success" type="json">
+				<param name="root">resultContent</param>
+			</result>
+			<result name="suc">/jsp/customer/update.jsp</result>
+		</action>	
+ 	</package>
+    
+</struts>    

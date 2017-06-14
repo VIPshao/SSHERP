@@ -1,0 +1,5 @@
+create or replace view detail_buy_view as
+select bd.buy_detail_id,bd.buy_id,pro.pro_id,pro.pro_name,bd.buy_num,bd.buy_price,b.total_price,bd.is_delete from
+buy_detail bd,pro,
+  (select buy_detail_id,sum(buy_num*buy_price) total_price  from buy_detail group by buy_detail_id) b
+  where bd.buy_detail_id=b.buy_detail_id and bd.pro_id=pro.pro_id and bd.is_delete=1 and pro.is_delete=1;
